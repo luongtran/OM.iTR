@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Task name:
+  = @task.task_name
+%p
+  %b Description:
+  = @task.description
+%p
+  %b Created by:
+  = @task.created_by
+
+= link_to 'Edit', edit_task_path(@task)
+\|
+= link_to 'Back', tasks_path

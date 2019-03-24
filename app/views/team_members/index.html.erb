@@ -1,0 +1,51 @@
+
+
+<%= render 'shared/page_title', title: "showing all team members" %>
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<br>
+
+<div class=" col-md-12 pagination-tab pagination-top">
+  <%= will_paginate %>
+</div>
+
+<% @team_members.each do |team_member| %>
+  <div class="col-lg-12 chef-main chef-full bio-section chef-bio">
+    <div class="col-md-3">
+      <div class="image-box-shadow">
+        <div class="custom-profile-detail">
+          <% if team_member.avatar.blank? %>
+            <%= link_to image_tag('no_avatar.png'), team_team_member_path(team_member.team, team_member) %>
+          <% else %>
+            <%= link_to image_tag(team_member.avatar.url, size: 300), team_team_member_path(team_member.team, team_member) %>
+          <% end %>
+
+          <div class="user-profile">
+            <center>
+              <h3>
+                <%= team_member.full_name %>
+                &nbsp;
+                <% if (current_user.admin?) %>
+                  <% if current_user.id != team_member.id %>
+                    <%= link_to t('team_members.delete_profile'), team_team_member_path(team_member.team, team_member.id), data: { confirm: t('chefs.confirm_delete_account') } %>
+                  <% end %>
+                <% end %>
+              </h3>
+            </center>
+          </div>
+        </div>
+      </div>
+   </div>
+
+  <div class="col-md-9">
+    <div class="well box-content box-main">
+      <div class="bios">
+        <h3><%= t 'forms.bio' %></h3>
+        <p><%= !team_member.bio.nil? ? team_member.bio.html_safe : "" %> </p>
+      </div>
+    </div>
+  </div>
+  </div>
+<% end %>
+
+<div class="btn-lg  btn-bottom">&nbsp;</div>

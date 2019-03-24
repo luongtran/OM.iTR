@@ -1,0 +1,7 @@
+%h1 Editing team_member
+
+= render 'form'
+
+= link_to 'Show', team_team_member_path(@team_member.team, @team_member)
+\|
+= link_to 'Back', team_team_members_path(@team_member.team)

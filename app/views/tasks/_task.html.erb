@@ -1,0 +1,125 @@
+ <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js'></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--div class="login-header">< render 'shared/page_title', title: "All Recipes" ></div-->
+
+<div class="col-md-12 margin-sec pagin-top">
+  <div class="pagination-tab center">
+    <%= will_paginate @tasks  %>
+  </div>
+</div>
+
+<div class="list-recipes">
+  <% if @tasks.blank? %>
+    <div class="row">
+      <div class="col-sm-12" style="text-align:center;">
+        <% if session[:user_role] == 'admin' %>
+          <span style="color:red;text-align:center;">
+            <%=
+              t('common.no_recipes_found_admin_html',
+                  link: link_to(t('common.here'), new_task_path))
+            %>
+          </span>
+        <% else %>
+          <span style="color:red;text-align:center;">
+            <%= t('common.no_recipes_found') %>
+          </span>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
+
+  <div class="col-md-12 margin-sec">
+  <div class="margin-sec top-recepi top-space">
+    <% @tasks.each do |task| %>
+      <div class="row">
+        <div class="col-md-3 detail"></div>
+        <div class="col-md-6 detail">
+          <div class="row">
+            <div class="col-md-1"><%= check_box('task', 'check', { class: 'checkbox cb_task', data: { id: task.id } }) %></div>
+            <div class="col-md-8"><h2><%= link_to task.task_name, task_path(task) %></h2></div>
+            <div class="col-md-3">
+              <%= link_to t('Edit'),  edit_task_path(task)  %>
+              &nbsp;
+              <%= link_to t('tasks.delete'), @task,  style:"margin-right:100px;",  method: :delete, data: { confirm: t('common.confirm') } %>
+            </div>
+          </div>
+          
+        </div>
+        <div class="col-md-3 detail"></div>
+        
+      </div>
+    <% end %>
+    <div class="row dropdown-divider">
+
+    </div>
+    <div class="row margin-top-50">
+      <div class="col-md-3 detail"></div>
+      <div class="col-md-6 detail">
+        <%= form_tag('/send-tasks', method: :post, remote: true, id: "frmAssignTasks") do |f| %> 
+           <%= hidden_field_tag :task_ids, '' %>
+           <div class="col-md-12">
+            Tag Todo's compiled list email to Staff's email:
+           </div>
+           <div class="col-md-12 margin-top-5 label">
+             <%= text_field_tag :emails, '', id: "tags",class: "form-control" %>
+           </div>
+           <div class="col-md-12 margin-top-5 label">
+             <%= submit_tag "Send Tasks", class: 'btn btn-success' %>
+           </div>
+        <% end %>
+      </div>
+
+      <div class="col-md-3 detail"></div>
+      
+    </div>
+    <!-- '250x150'-->
+  </div>
+  </div>
+
+
+
+
+</div>
+
+<div class="col-md-12 margin-sec bottom-pagination">
+  <div class="pagination-tab">
+    <%= will_paginate @tasks %>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+    $('#frmAssignTasks').on('ajax:success', function(e, data, status, xhr){
+      console.log(data);
+        var htmlAlert = '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert">&#215;</a>'+data.message+'</div>';
+        $('#alert-message').html(htmlAlert);
+     }).on('ajax:error',function(e, xhr, status, error) {
+        var htmlAlert = '<div class="alert alert-error"><a href="#" class="close" data-dismiss="alert">&#215;</a>' + error + '</div>';
+        $('#alert-message').html(htmlAlert);
+        console.log(error);
+      });
+
+    $('.cb_task').on('click', function() {
+      var checked = $(this).is(":checked");
+      var task_ids = $('#task_ids').val();
+      var task_id = $(this).attr('data-id');
+      if(task_ids != null && task_ids != '') {
+        task_ids = task_ids.split(',');
+        if(checked) {
+          task_ids.push(task_id);
+        } else {
+          var index = task_ids.indexOf(task_id);
+          if (index !== -1) task_ids.splice(index, 1);
+        }
+        $('#task_ids').val(task_ids.join(','));
+      } else {
+        $('#task_ids').val(task_id);
+      }
+    });
+  }); 
+  var emailRegex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  $('#tags').tagsInput({
+    'width':'800px',
+    pattern: emailRegex
+  });
+</script>
