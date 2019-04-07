@@ -315,6 +315,7 @@ DEPENDENCIES
   nested_scaffold
   paperclip
   pg
+  puma (~> 3.0)
   rails (~> 5.1, >= 5.1.6)
   rails-i18n (~> 5.1)
   rb-readline
