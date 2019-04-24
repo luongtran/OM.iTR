@@ -32,16 +32,24 @@
   <div class="col-md-12 margin-sec">
   <div class="margin-sec top-recepi top-space">
     <% @tasks.each do |task| %>
+      <% completed = task.completed?(current_user.id) %>
       <div class="row">
         <div class="col-md-3 detail"></div>
         <div class="col-md-6 detail">
           <div class="row">
-            <div class="col-md-1"><%= check_box('task', 'check', { class: 'checkbox cb_task', data: { id: task.id } }) %></div>
-            <div class="col-md-8"><h2><%= link_to task.task_name, task_path(task) %></h2></div>
+            <div class="col-md-1"><%= check_box('task', 'check', {checked: completed, class: 'checkbox cb_task', data: { id: task.id } }) %></div>
+            <div class="col-md-8"><h2>
+              <%= link_to task.task_name, task_path(task) %>
+              <% if completed %>
+                <button type="button" class="btn btn-success">Completed</button>
+              <% end %>
+            </h2></div>
             <div class="col-md-3">
+              <% if current_user.task_editable? %>
               <%= link_to t('Edit'),  edit_task_path(task)  %>
               &nbsp;
               <%= link_to t('tasks.delete'), @task,  style:"margin-right:100px;",  method: :delete, data: { confirm: t('common.confirm') } %>
+              <% end %>
             </div>
           </div>
           
@@ -50,9 +58,18 @@
         
       </div>
     <% end %>
-    <div class="row dropdown-divider">
-
+  
+    <div class="row margin-top-50 hide" id="markCompleted">
+      <div class="col-md-3 detail"></div>
+        <div class="col-md-6 detail right">
+          <%= form_tag('/mark-completed', method: :post, remote: true, id: "frmAssignTasks") do |f| %> 
+            <%= hidden_field_tag :mark_task_ids, '' %>
+            <input type="submit" class="btn btn-success btn-lg" value="Mark tasks completed" >
+        <% end %>
+           
+        </div>
     </div>
+    <% if current_user.admin? || current_user.manager? %>
     <div class="row margin-top-50">
       <div class="col-md-3 detail"></div>
       <div class="col-md-6 detail">
@@ -73,6 +90,7 @@
       <div class="col-md-3 detail"></div>
       
     </div>
+    <% end %>
     <!-- '250x150'-->
   </div>
   </div>
@@ -88,6 +106,13 @@
   </div>
 </div>
 <script>
+  function showCompletedButton(task_ids) {
+    if(task_ids != null && task_ids != "") {
+      $('#markCompleted').removeClass("hide");
+    } else {
+      $('#markCompleted').addClass("hide");
+    }
+  }
   $(document).ready(function() {
     $('#frmAssignTasks').on('ajax:success', function(e, data, status, xhr){
       console.log(data);
@@ -112,9 +137,12 @@
           if (index !== -1) task_ids.splice(index, 1);
         }
         $('#task_ids').val(task_ids.join(','));
+        $('#mark_task_ids').val(task_ids.join(','));
       } else {
         $('#task_ids').val(task_id);
+        $('#mark_task_ids').val(task_id);
       }
+      showCompletedButton($('#task_ids').val());
     });
   }); 
   var emailRegex = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;

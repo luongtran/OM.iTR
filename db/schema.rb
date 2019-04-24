@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_10_103641) do
+ActiveRecord::Schema.define(version: 2019_04_24_171010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "pages", force: :cascade do |t|
+    t.string "name"
+    t.string "destination"
+    t.integer "team_id"
+    t.text "title"
+    t.text "content"
+    t.text "business_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "page_image_file_name"
+    t.string "page_image_content_type"
+    t.bigint "page_image_file_size"
+    t.datetime "page_image_updated_at"
+  end
 
   create_table "tasks", force: :cascade do |t|
     t.string "task_name"
@@ -23,11 +38,12 @@ ActiveRecord::Schema.define(version: 2019_03_10_103641) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "tasks_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
+  create_table "tasks_users", force: :cascade do |t|
     t.bigint "task_id", null: false
-    t.index ["task_id", "user_id"], name: "index_tasks_users_on_task_id_and_user_id"
-    t.index ["user_id", "task_id"], name: "index_tasks_users_on_user_id_and_task_id"
+    t.bigint "user_id", null: false
+    t.string "status"
+    t.index ["task_id"], name: "index_tasks_users_on_task_id"
+    t.index ["user_id"], name: "index_tasks_users_on_user_id"
   end
 
   create_table "team_members", force: :cascade do |t|

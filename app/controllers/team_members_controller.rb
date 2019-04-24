@@ -1,4 +1,5 @@
 class TeamMembersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_team, except: [:send_tasks]
   before_action :set_team_member, only: [:show, :edit, :update, :destroy]
 
@@ -19,7 +20,7 @@ class TeamMembersController < ApplicationController
       users = User.where("email IN (?)", emails.split(','))
       assign_tasks(task_ids.split(','), users) if users
     end
-    @result = {success: true, message: "Assigned tasks successfully"}
+    @result = {success: true, message: I18n.t('team_members.assign_task_success') }
 
   end
 
@@ -37,7 +38,7 @@ class TeamMembersController < ApplicationController
     @team_member = @team.team_members.build(team_member_params)
 
     if @team_member.save
-      redirect_to(team_team_member_path(@team_member.team, @team_member), notice: 'Team member was successfully created.')
+      redirect_to(team_team_member_path(@team_member.team, @team_member), notice: I18n.t('team_members.created_success'))
     else
       render action: 'new'
     end
@@ -46,7 +47,7 @@ class TeamMembersController < ApplicationController
   # PUT teams/1/team_members/1
   def update
     if @team_member.update_attributes(team_member_params)
-      redirect_to([@team_member.team, @team_member], notice: 'Team member was successfully updated.')
+      redirect_to([@team_member.team, @team_member], notice: I18n.t('team_members.updated_success'))
     else
       render action: 'edit'
     end
@@ -62,9 +63,11 @@ class TeamMembersController < ApplicationController
   private
 
     def assign_tasks(task_ids, users)
+      puts "================ TEST ================="
       tasks = Task.where(id: task_ids)
       users.each do |user|
         user.tasks << tasks
+        user.save
       end
     end
 
@@ -79,6 +82,6 @@ class TeamMembersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def team_member_params
-      params.require(:user).permit(:full_name, :email, :password, :avatar, :bio)
+      params.require(:user).permit(:full_name, :email, :password, :role, :bio)
     end
 end

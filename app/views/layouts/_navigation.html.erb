@@ -23,35 +23,34 @@
               All Todo<span class="sr-only">(current)</span>
             <% end %>
           </li>
-           <li class="dropdown nav-item">
+         <!--   <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle btn btn-purple" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Styles</a>
             <ul class="dropdown-menu">
              
             </ul>
-          </li>
+          </li> -->
           
 
             <li class="dropdown nav-item">
             
-              
+              <% if current_user.admin? || current_user.manager? %>
               <li class="nav-item">
                 <%= link_to "New Todo", new_task_path, class: "btn btn-success" %>
               </li>
-              
+              <% end %>
               <li class="dropdown nav-item">
                 <a href="#" class="dropdown-toggle btn btn-success" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Team</a>
                 <ul class="dropdown-menu">
-                  <% if current_user.admin? %>
+                 
                   <li>
                     <%= link_to "List Team Members", team_team_members_path(current_user.team_id) %>
                   </li>
+                  <% if current_user.admin? || current_user.manager? %>
                   <li>
                     <%= link_to "Create Staff Account", new_team_team_member_path(current_user.team_id) %>
                   </li>
                   <% end %>
-                  <li>
-                    
-                  </li>
+                  
                 </ul>
               </li>
           </li>
@@ -66,6 +65,14 @@
               <li>
                 <%= link_to "Edit Profile",  edit_user_registration_path(current_user) %>
               </li>
+              <% if current_user.role == "admin" %>
+                <li>
+                  <%= link_to "Update Welcome Page", welcome_edit_pages_path %>
+                </li>
+                <li>
+                  <%= link_to "Update About Page", about_edit_pages_path %>
+                </li>
+              <% end %>
               
               <li role="separator" class="divider"></li>
               <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
