@@ -40,7 +40,7 @@ class User < ApplicationRecord
   end
 
   def create_page
-    if self.role.nil?
+    if admin?
       Page.create({name: "Welcome", title: "Welcome", destination: "welcome", business_name: self.team.name, team_id: self.team_id})
       Page.create({name: "about", title: "About", destination: "about", business_name: self.team.name, team_id: self.team_id})
     end

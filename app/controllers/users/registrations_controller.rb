@@ -5,6 +5,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   def create
+    params[:user][:role] = "admin"
     super
   end
 
@@ -67,7 +68,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
     def sign_up_params
-       params.require(:user).permit( :full_name, :email, :password,:password_confirmation,
+       params.require(:user).permit( :full_name, :email, :password,:password_confirmation, :role,
                         team_attributes:[:name])
     end
 
