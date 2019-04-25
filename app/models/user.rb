@@ -20,7 +20,7 @@ class User < ApplicationRecord
   STAFF_ROLE = 'staff'
 
   
-  after_create :create_page, :set_role
+  after_create :set_role, :create_page
 
   def admin?
   	self.role == ADMIN_ROLE
