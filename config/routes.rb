@@ -18,7 +18,9 @@ Todo::Application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
   #root to: "home#index"
 
-  post 'send-tasks', to: 'team_members#send_tasks', :defaults => { :format => 'json' }
+  post 'send-tasks', to: 'team_members#send_tasks'
+  get 'teams/:team_id/staff-emails', to: 'team_members#email_list', as: :email_list
   post 'mark-completed', to: 'tasks#completed_tasks', :defaults => { :format => 'json' }
+  post 'sendUserEmailContent', to: 'team_members#send_emails', :defaults => { :format => 'json' }
   
 end

@@ -62,7 +62,7 @@
     <div class="row margin-top-50 hide" id="markCompleted">
       <div class="col-md-3 detail"></div>
         <div class="col-md-6 detail right">
-          <%= form_tag('/mark-completed', method: :post, remote: true, id: "frmAssignTasks") do |f| %> 
+          <%= form_tag('/mark-completed', method: :post, id: "frmAssignTasks") do |f| %> 
             <%= hidden_field_tag :mark_task_ids, '' %>
             <input type="submit" class="btn btn-success btn-lg" value="Mark tasks completed" >
         <% end %>
@@ -73,7 +73,7 @@
     <div class="row margin-top-50">
       <div class="col-md-3 detail"></div>
       <div class="col-md-6 detail">
-        <%= form_tag('/send-tasks', method: :post, remote: true, id: "frmAssignTasks") do |f| %> 
+        <%= form_tag('/send-tasks', method: :post, id: "frmAssignTasks") do |f| %> 
            <%= hidden_field_tag :task_ids, '' %>
            <div class="col-md-12">
             Tag Todo's compiled list email to Staff's email:
@@ -115,7 +115,6 @@
   }
   $(document).ready(function() {
     $('#frmAssignTasks').on('ajax:success', function(e, data, status, xhr){
-      console.log(data);
         var htmlAlert = '<div class="alert alert-success"><a href="#" class="close" data-dismiss="alert">&#215;</a>'+data.message+'</div>';
         $('#alert-message').html(htmlAlert);
      }).on('ajax:error',function(e, xhr, status, error) {

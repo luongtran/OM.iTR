@@ -30,6 +30,9 @@ class User < ApplicationRecord
     self.role == MANAGER_ROLE
   end
 
+  def staff?
+    self.role == STAFF_ROLE
+  end
   def task_editable?
     self.role == ADMIN_ROLE || self.role == MANAGER_ROLE
   end

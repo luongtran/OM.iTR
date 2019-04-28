@@ -72,6 +72,9 @@
                 <li>
                   <%= link_to "Update About Page", about_edit_pages_path %>
                 </li>
+                <li>
+                  <%= link_to "Staff Emails List", email_list_path(current_user.team) %>
+                </li>
               <% end %>
               
               <li role="separator" class="divider"></li>
