@@ -978,6 +978,17 @@ header#main_header #responsive-nav {  float: left;
     }
 }
 
+.search-form {
+    width: 30%;
+    float: left;
+    margin-right:50px;
+}
+
+.top-left-menu {
+    width: 50%;
+    float: left;
+}
+
 
 
 

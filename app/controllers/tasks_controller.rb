@@ -80,16 +80,20 @@ class TasksController < ApplicationController
       params.require(:task).permit(:task_name, :description, :created_by)
     end
 
+
     def get_tasks
+      @keyword = params[:keyword].present? ? params[:keyword].strip : ''
       role = current_user.role
+      query = nil
       case role
       when 'admin'
-        @tasks = current_user.my_tasks.paginate(page: params[:page], per_page: 10)
+        query = current_user.my_tasks.where("task_name LIKE ?", "%#{@keyword}%")
       when 'manager'
-        @tasks = current_user.my_tasks.paginate(page: params[:page], per_page: 10)
+        query = current_user.my_tasks.where("task_name LIKE ?", "%#{@keyword}%")
       else
-        @tasks = current_user.tasks.paginate(page: params[:page], per_page: 10)
+        query = current_user.tasks.where("task_name LIKE ?", "%#{@keyword}%")
       end
+      @tasks = query.paginate(page: params[:page], per_page: 10)
 
     end
 end
