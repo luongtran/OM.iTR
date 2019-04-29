@@ -16,6 +16,7 @@ Todo::Application.routes.draw do
   end
   resources :tasks
   devise_for :users, controllers: { registrations: 'users/registrations' }
+  get ':team', to: 'pages#welcome', as: "team_welcome"
   #root to: "home#index"
 
   post 'send-tasks', to: 'team_members#send_tasks'

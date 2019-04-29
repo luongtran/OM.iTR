@@ -20,6 +20,7 @@ gem 'haml-rails', '~> 1.0'
 gem 'paperclip'
 gem 'cancancan'
 gem 'puma', '~> 3.0'
+gem 'friendly_id', '~> 5.2.4'
 
 
 # Use Uglifier as compressor for JavaScript assets

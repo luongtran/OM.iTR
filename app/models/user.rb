@@ -44,8 +44,8 @@ class User < ApplicationRecord
 
   def create_page
     if admin?
-      Page.create({name: "Welcome", title: "Welcome", destination: "welcome", business_name: self.team.name, team_id: self.team_id})
-      Page.create({name: "about", title: "About", destination: "about", business_name: self.team.name, team_id: self.team_id})
+      Page.create({name: "Welcome", title: "Welcome", destination: "welcome", content: "Welcome to #{self.team.name} App", business_name: self.team.name, team_id: self.team_id})
+      Page.create({name: "about", title: "About", destination: "about", content: "About us", business_name: self.team.name, team_id: self.team_id})
     end
   end
 
