@@ -41,6 +41,16 @@
           </div>
         </div>
 
+        <div class="form-group">
+          <div class="control-label col-md-2"><%= f.label :avatar %></div>
+          <div class="col-md-2">
+            <%= image_tag( (!@team_member.nil? && @team_member.avatar.url.present?) ? @team_member.avatar.url : 'cooking-new.png', class: 'img-responsive', alt: t('common.no_image')) %>
+          </div>
+          <div class="control-label col-md-8">
+            <%= f.file_field :avatar, accept: 'image/jpeg,image/gif,image/png' %>
+          </div>
+        </div>
+
       </div>
       
       <div class="col-md-5 well box-content">

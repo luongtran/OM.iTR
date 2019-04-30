@@ -266,7 +266,7 @@ color: #337ab7;
 
 .chef-full .box-content.box-main {
   background-color: #fff;
-  padding: 20px;
+  /*padding: 20px;*/
   border-radius: 0;
   border: 1px solid #9999994f;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
@@ -308,6 +308,15 @@ color: #337ab7;
   position: absolute;
   right: 40px;
   margin: 0;
+}
+
+.chef-main .col-md-9 {
+  padding-left: 0px !important;
+  padding-right: 10px !important;
+}
+
+.chef-main .well {
+  padding: 0px !important;
 }
 
 a {

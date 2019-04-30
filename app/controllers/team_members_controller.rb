@@ -111,7 +111,6 @@ class TeamMembersController < ApplicationController
   end
 
   def assign_tasks(task_ids, users)
-    puts "================ TEST ================="
     tasks = Task.where(id: task_ids)
     users.each do |user|
       user.tasks << tasks
@@ -121,7 +120,7 @@ class TeamMembersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_team
-    @team = Team.find(params[:team_id])
+    @team = Team.friendly.find(params[:team_id])
   end
 
   def set_team_member
@@ -130,6 +129,6 @@ class TeamMembersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def team_member_params
-    params.require(:user).permit(:full_name, :email, :password, :role, :bio)
+    params.require(:user).permit(:full_name, :email, :password, :role, :bio, :avatar)
   end
 end
