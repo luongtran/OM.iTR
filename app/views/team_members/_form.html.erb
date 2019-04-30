@@ -68,7 +68,7 @@
         <div class="form-group">
           <div class="col-md-2 col-md-offset-2">
             <% if current_user.admin? %>
-            <%= link_to t('chefs.delete_profile'), team_team_members_path(@team_member.team, @team_member), class: "btn btn-danger delete-btn btn-lg",  method: :delete, data: { confirm: t('chefs.confirm_delete_account') } %>
+            <%= link_to t('team_members.delete_profile'), team_team_members_path(@team_member.team, @team_member), class: "btn btn-danger delete-btn btn-lg",  method: :delete, data: { confirm: t('team_members.confirm_delete_account') } %>
             <% end %>
           </div>
           <div class="col-md-offset-2 col-md-4">

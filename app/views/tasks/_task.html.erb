@@ -15,13 +15,13 @@
         <% if session[:user_role] == 'admin' %>
           <span style="color:red;text-align:center;">
             <%=
-              t('common.no_recipes_found_admin_html',
+              t('common.no_tasks_found_admin_html',
                   link: link_to(t('common.here'), new_task_path))
             %>
           </span>
         <% else %>
           <span style="color:red;text-align:center;">
-            <%= t('common.no_recipes_found') %>
+            <%= t('common.no_tasks_found') %>
           </span>
         <% end %>
       </div>
@@ -48,7 +48,7 @@
               <% if current_user.task_editable? %>
               <%= link_to t('Edit'),  edit_task_path(task)  %>
               &nbsp;
-              <%= link_to t('tasks.delete'), @task,  style:"margin-right:100px;",  method: :delete, data: { confirm: t('common.confirm') } %>
+              <%= link_to t('task.delete'), @task,  style:"margin-right:100px;",  method: :delete, data: { confirm: t('common.confirm') } %>
               <% end %>
             </div>
           </div>

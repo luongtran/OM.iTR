@@ -22,15 +22,47 @@
 es:
  language_name: Español
  hello: "Hello world"
+ common:
+  no_image: Has no image
+  no_tasks_found_admin_html: Have no task in admin panel
+  no_tasks_found: You have no task
+  here: Here
+  confirm: Do you want to remove data? 
+ forms:
+  description: Description
+  note_allow_chars: Allow number characters from 20 to 3000
+  task_name: Task name
+  bio: Bio
  task:
   created_success: Task was successfully created.
   updated_success: Task was successfully updated.
   deleted_success: Task was successfully destroyed.
+  write_name: Task name
+  description_placeholder: Task description
+  task_description: Task description
+  delete: Delete
+  delete_task: Delete this task
+  edit_task: Edit this task
+  return_to_tasks_listing: Return to tasks listing
  team_members:
   assign_task_success: Assigned tasks successfully.
   created_success: Team member was successfully created.
   updated_success: Team member was successfully updated.
+  search_member: Search staff email
+  clear_search: Clear search
+  team_members_list: List team members
+  delete_profile: Delete profile
+  confirm_delete_account: Do you want to remove this staff account?
+  edit_profile: Edit this profile
  team:
   created_success: Team was successfully created.
   updated_success: Team was successfully updated.
   deleted_success: Team was successfully destroyed.
+ pages:
+  new:
+   tap_or_click_to_save: Tap or click to save
+   save_to_view_changes: Save to view change
+   upload_landing_pic_max_size: Upload landing image (Max 5Mbs)
+   you_can_not_write_more_chars: You cannot write more characters
+   edit_business_short_intro: Edit business intro
+   edit_page_text: Edit page

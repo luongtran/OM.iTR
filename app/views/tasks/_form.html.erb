@@ -31,7 +31,7 @@
             <%= f.label :task_name, t('forms.task_name') %>
           </div>
           <div class="col-md-12">
-            <%= f.text_field :task_name, class: "form-control", placeholder: t('tasks.write_name'), autofocus: true %>
+            <%= f.text_field :task_name, class: "form-control", placeholder: t('task.write_name'), autofocus: true %>
           </div>
         </div>
 
@@ -41,7 +41,7 @@
             <%= f.label :description, t('forms.description') %>
           </div>
           <div class="col-md-12">
-            <%= f.cktext_area :description, cols: 50, class: "form-control", placeholder: t('tasks.description_placeholder'), autofocus: true %>
+            <%= f.cktext_area :description, cols: 50, class: "form-control", placeholder: t('task.description_placeholder'), autofocus: true %>
             <p style="color:red;"><%= t('common.note_allow_chars', from: 20, to: 3000) %></p>
           </div>
         </div>

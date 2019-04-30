@@ -17,19 +17,19 @@
       </div>
       <div class="col-md-3">
         <% if (current_user and (@task.created_by == current_user.id) || current_user.admin?) %>
-          <%= link_to t('recipes.delete_task'), @task, class: "btn btn-danger pull-right  btn-lg", style:"margin-right:100px;",  method: :delete, data: { confirm: t('common.confirm') } %>
+          <%= link_to t('task.delete_task'), @task, class: "btn btn-danger pull-right  btn-lg", style:"margin-right:100px;",  method: :delete, data: { confirm: t('common.confirm') } %>
         <% end %>
 
         
         <% if (current_user and (@task.created_by == current_user.id)|| current_user.admin? ) %>
-          <%= link_to t('recipes.edit_task'), edit_task_path(@task), class: "btn btn-success pull-right btn-lg" %>
+          <%= link_to t('task.edit_task'), edit_task_path(@task), class: "btn btn-success pull-right btn-lg" %>
         <% end %>
       </div>
   </div>
 
     <div class="well-sec">
       <p>
-        <strong><%= t 'tasks.task_description' %></strong>
+        <strong><%= t 'task.task_description' %></strong>
       </p>
       <div style="font-family: Garamond; font-size:18px;">
         <%= simple_format(@task.description) %>
@@ -50,7 +50,7 @@
 
   <center>
     <h5>
-      <%= link_to t('recipes.return_to_tasks_listing'), tasks_path, class: 'btn btn-primary btn-lg', style: "color:white !important" %>
+      <%= link_to t('task.return_to_tasks_listing'), tasks_path, class: 'btn btn-primary btn-lg', style: "color:white !important" %>
     </h5>
   </center>
   
