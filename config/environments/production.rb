@@ -44,10 +44,12 @@ Todo::Application.configure do
     port:                 587,
     domain:               'itoprecipes.com',
     user_name:            'no-reply@itoprecipes.com',
-    password:             'Vl149d439',
+    password:             'noreplyitr1',
     authentication:       :plain,
     enable_starttls_auto: true
   }
+  
+  config.action_mailer.default_url_options = { host: 'om.itoprecipes.com' }
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
